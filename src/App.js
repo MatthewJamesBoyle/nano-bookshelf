@@ -26,6 +26,22 @@ class BooksApp extends React.Component {
     showSearchPage: false
   }
 
+    moveBook = (eventVal,id) => {
+       const newShelf = eventVal;
+      //  change this to be a full book object.
+       BooksAPI.update({id},newShelf)
+       .then((response)=> {
+        //  console.log(response);
+       });
+       const booksToUpdate = this.state.books.filter(book => book.id === id);
+       //I am sure this is always going to return one element, but lets put it behind a foreach guard.
+       booksToUpdate.forEach(book => book.shelf =  newShelf );
+        const stateWithoutId = this.state.books.filter(book=> book.id !== id);
+        const newState = [...stateWithoutId,...booksToUpdate];
+        this.setState(newState);
+
+     }
+
   render() {
     return (
       <div className="app">
@@ -37,7 +53,7 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             {this.state.books ?
-            (<BookList books={this.state.books}/>):
+            (<BookList books={this.state.books} move={this.moveBook} />):
             <div>Books loading!</div>}
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
@@ -48,4 +64,5 @@ class BooksApp extends React.Component {
     )
   }
 }
+
 export default BooksApp

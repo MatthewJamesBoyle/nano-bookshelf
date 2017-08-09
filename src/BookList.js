@@ -49,6 +49,7 @@ export default class BookList extends Component {
               bookAuthor={book.authors[0]}
               bookTitle={book.title}
               bookCoverImage={book.imageLinks.thumbnail}
+              move={this.props.move}
             />
           </li>)
           

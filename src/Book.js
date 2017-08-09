@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import * as BooksAPI from './BooksAPI';
-
 
 class Book extends Component {
     render() {
@@ -9,8 +7,8 @@ class Book extends Component {
                 <div className="book-top">
                   <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.bookCoverImage})` }}></div>
                     <div className="book-shelf-changer">
-                      <select onChange={this.moveBook}>
-                        <option value="none" disabled>Move to...</option>
+                      <select onChange={event => this.props.move(event.target.value,this.props.bookId)}>
+                        <option value="none" >Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
@@ -24,14 +22,7 @@ class Book extends Component {
         );
     }
 
-     moveBook = (event) => {
-       const newShelf = event.target.value;
-      //  change this to be a full book object.
-       BooksAPI.update({id:this.props.id},newShelf)
-       .then((response)=>{
-         console.log(response);
-       })
-     }
+   
 
 }
 
