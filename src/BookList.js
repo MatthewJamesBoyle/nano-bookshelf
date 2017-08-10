@@ -37,7 +37,11 @@ export default class BookList extends Component {
 
         );
     }
-
+    /**
+     * @description This method takes a book status, and returns all the book that matches that status. For example,
+     *  all the books a user has read.
+     * @param{string} The status of the books you're interested in.
+     */
      getRelevantBooks = (status) => {
       const booksMatchingStatus =  this.props.books.filter((book) =>{
           return book.shelf === status;

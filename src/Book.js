@@ -1,13 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Book extends Component {
-    render() {
+/**
+ * @description stateless functional component that takes props and returns a book.
+ * @param {*} props contains the details needs for a book; bookCoverImage,move (the move function),bookTitle and bookAuthor
+ */
+const Book = (props) => {
         return(
              <div className="book">
                 <div className="book-top">
-                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.bookCoverImage})` }}></div>
+                  <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${props.bookCoverImage})` }}></div>
                     <div className="book-shelf-changer">
-                      <select onChange={event => this.props.move(event.target.value,this.props.bookId)}>
+                      <select onChange={event => props.move(event.target.value,props.bookId)}>
                         <option value="none" >Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
@@ -16,14 +19,10 @@ class Book extends Component {
                       </select>
                     </div>
                   </div>
-                <div className="book-title">{this.props.bookTitle}</div>
-                <div className="book-authors">{this.props.bookAuthor}</div>
+                <div className="book-title">{props.bookTitle}</div>
+                <div className="book-authors">{props.bookAuthor}</div>
             </div>
         );
     }
-
-   
-
-}
 
 export default Book;
