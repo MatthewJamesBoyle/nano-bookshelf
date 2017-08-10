@@ -1,5 +1,40 @@
-import React from 'react';
-const SearchPage = () => {
+import React, {Component} from 'react';
+import * as BooksAPI from './BooksAPI';
+import Book from './Book'
+export default class SearchPage extends Component {
+  state = {
+    query: '',
+    books:[]
+  }
+
+  updateQuery =(query) => {
+    this.setState({
+      query
+    });
+  }
+
+  clearQuery = () => {
+    this.setState({
+      query:'',
+    })
+  }
+
+  render(){
+    const {query} = this.state;
+    let applicableBooks; 
+    if(query) {
+      BooksAPI.search(query,20).then(results => {
+        if(results.length > 0) {
+          this.setState({
+            books:results
+          })
+        } else {
+          this.setState({
+            books:[]
+          })
+        }
+      })
+    }
       return(
       <div className="search-books">
             <div className="search-books-bar">
@@ -13,14 +48,34 @@ const SearchPage = () => {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input 
+                  type="text" 
+                  placeholder="Search by title or author"
+                  value={query}
+                  onChange={event => this.updateQuery(event.target.value)}
+                  />
                 
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+               {this.state.books.length ? (
+                 this.state.books.map((book) => {
+                  return (
+                    <li key={book.id}>
+                       <Book
+                          bookId={book.id}
+                          bookAuthor={book.authors}
+                          bookTitle={book.title}
+                          bookCoverImage={book.imageLinks.thumbnail}
+                          move={this.props.move}
+                        />
+                    </li>)
+                  })
+               ):<div>Your search result is empty!</div>}
+              </ol>
             </div>
           </div>
       );
+  }
 }
-export default SearchPage;

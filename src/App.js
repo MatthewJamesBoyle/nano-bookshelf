@@ -45,10 +45,8 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchPage/>
-        ) : (
-          <div className="list-books">
+      <Route exact path="/" render={()=>{
+        <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
@@ -59,10 +57,12 @@ class BooksApp extends React.Component {
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
           </div>
-        )}
+      }}/>       
       </div>
     )
   }
 }
 
 export default BooksApp
+
+

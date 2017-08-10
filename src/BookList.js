@@ -43,7 +43,7 @@ export default class BookList extends Component {
           return book.shelf === status;
         });
         const booksMatchingStatusList = booksMatchingStatus.map(book =>{
-          return(<li key={book.title}>
+          return(<li key={book.id}>
             <Book
               bookId={book.id}
               bookAuthor={book.authors[0]}
