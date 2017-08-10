@@ -33,11 +33,12 @@ export default class SearchPage extends Component {
           })
         }
       })
+      .catch(e=> console.log(e));
     }
       return(
       <div className="search-books">
             <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.props.history.push("/")}>Close</a>
+              <a className="close-search" onClick={() => this.props.history.push("/") }>Close</a>
               <div className="search-books-input-wrapper">
                 <input 
                   type="text" 
