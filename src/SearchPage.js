@@ -10,19 +10,9 @@ export default class SearchPage extends Component {
   updateQuery =(query) => {
     this.setState({
       query
-    });
-  }
-
-  clearQuery = () => {
-    this.setState({
-      query:'',
     })
-  }
 
-  render(){
-    const {query} = this.state;
-    if(query) {
-      BooksAPI.search(query,20).then(results => {
+     BooksAPI.search(query,20).then(results => {
         if(results.length > 0) {
           this.setState({
             books:results
@@ -34,7 +24,15 @@ export default class SearchPage extends Component {
         }
       })
       .catch(e=> console.log(e));
-    }
+  }
+
+  clearQuery = () => {
+    this.setState({
+      query:'',
+    })
+  }
+
+  render() {    
       return(
       <div className="search-books">
             <div className="search-books-bar">
@@ -43,7 +41,7 @@ export default class SearchPage extends Component {
                 <input 
                   type="text" 
                   placeholder="Search by title or author"
-                  value={query}
+                  value={this.state.query}
                   onChange={event => this.updateQuery(event.target.value)}
                   />
                 
