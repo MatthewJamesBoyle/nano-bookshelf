@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book'
+import {Link} from 'react-router-dom';
 export default class SearchPage extends Component {
   state = {
     query: '',
@@ -31,12 +32,22 @@ export default class SearchPage extends Component {
       query:'',
     })
   }
+    getShelf = (bookid) =>{
+      var toReturn = 'none';
+      this.props.books.forEach((book)  => {
+        if(book.id === bookid)
+         toReturn =  book.shelf;
+      });
+    }
 
   render() {    
       return(
       <div className="search-books">
             <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.props.history.push("/") }>Close</a>
+              <Link
+                to="/"
+                className="close-search" 
+              />
               <div className="search-books-input-wrapper">
                 <input 
                   type="text" 
@@ -59,6 +70,7 @@ export default class SearchPage extends Component {
                           bookTitle={book.title}
                           bookCoverImage={book.imageLinks.thumbnail}
                           move={this.props.move}
+                          shelf={this.getShelf(book.id)}
                         />
                     </li>)
                   })
