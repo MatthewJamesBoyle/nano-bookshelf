@@ -38,6 +38,7 @@ export default class SearchPage extends Component {
         if(book.id === bookid)
          toReturn =  book.shelf;
       });
+      return toReturn;
     }
 
   render() {    
@@ -54,8 +55,7 @@ export default class SearchPage extends Component {
                   placeholder="Search by title or author"
                   value={this.state.query}
                   onChange={event => this.updateQuery(event.target.value)}
-                  />
-                
+                />     
               </div>
             </div>
             <div className="search-books-results">

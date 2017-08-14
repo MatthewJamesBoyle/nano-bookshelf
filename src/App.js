@@ -58,7 +58,6 @@ class BooksApp extends React.Component {
           <div className="open-search">
             <a onClick={() => history.push("/search") }>Add a book</a>
           </div>
-          {console.log(this.state)}
         </div>
         )}/>
         <Route exact path="/search" render={({history})=> (
